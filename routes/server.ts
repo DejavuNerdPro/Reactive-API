@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { errorHandler } from '../utils/error_handling';
 import TeamRouter from './team_router';
 import MemberRouter from './member_router';
+import ProjectRouter from './project_router';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use('/api/team',TeamRouter);
 app.use('/api/member',MemberRouter);
+app.use('/api/project',ProjectRouter);
 app.use(errorHandler);
 
 
