@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Member{
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  joined_at DateTime @default(now())
+
+  teamMember TeamMember[]
+}
+
+model Projects {
+  id          Int      @id @default(autoincrement())
+  team_id     Int
+  teams        Teams     @relation(fields: [team_id], references: [id]) // Foreign key relation
+  name        String
+  description String?
+  start_date  DateTime
+  end_date    DateTime?
+}
+
+model Teams {
+  id      Int       @id @default(autoincrement())
+  name    String
+  projects Projects[] // Relation to the projects
+  description String
+  created_at DateTime @default(now())
+
+  teamMember TeamMember[]
+}
+
+model Roles{
+  id Int @id @default(autoincrement())
+  name String
+  description String
+
+  teamMember TeamMember[]
+}
+
+model TeamMember{
+  id Int @id @default(autoincrement())
+  team_id Int
+  member_id Int
+  role_id Int
+  name String
+  description String
+  created_at DateTime @default(now())
+
+  teams Teams @relation(fields:[team_id],references:[id])
+  member Member @relation(fields:[member_id],references:[id])
+  role Roles @relation(fields:[role_id],references:[id])
+}

@@ -21,6 +21,7 @@ export const query$=(text:string,params:any[]):Observable<any>=>
                         subscriber.error(err);
                     }else{
                         subscriber.next(res.rows);
+                        console.log('ROWS : ',res.rows);
                         subscriber.complete();
                     }
                 }
