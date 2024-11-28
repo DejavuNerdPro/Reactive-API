@@ -1,33 +1,24 @@
 import express,{Express,Request,Response} from 'express';
 import dotenv from 'dotenv';
-import {query$} from '../config/dbConfig';
-import {map} from 'rxjs/operators';
-import { error } from 'console';
+import { errorHandler } from '../utils/error_handling';
+import TeamRouter from './team_router';
+import MemberRouter from './member_router';
 
 dotenv.config();
 
 const app:Express=express();
 
 app.use(express.json());
-app.use('/',(req:Request,res:Response)=>{
+/* app.use('/',(req:Request,res:Response)=>{
     console.log("confirmed / .");
-    const teams=query$('SELECT * FROM projects;',[])
-    .subscribe(
-        {
-        next:(t)=>res.send(t),
-        error:(err)=>console.log(err)
-        }
-    );
     
-    console.log('Team : ',query$('SELECT * FROM team;',[])
-    .subscribe(
-        {
-        next:(t)=>res.send(t),
-        error:(err)=>console.log(err)
-        }
-    ));
     res.send("Visited / .");
-})
+}) */
+
+app.use('/api/team',TeamRouter);
+app.use('/api/member',MemberRouter);
+app.use(errorHandler);
+
 
 const PORT=process.env.PORT || 3000;
 app.listen(PORT,()=>
