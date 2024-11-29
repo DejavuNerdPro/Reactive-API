@@ -22,7 +22,9 @@ exports.teamMemberModel = {
         console.log('Error : ', e);
         process.exit(1);
     })),
-    getAll: () => (0, rxjs_1.from)(prisma_1.default.teamMember.findMany()
+    getAll: () => (0, rxjs_1.from)(prisma_1.default.teamMember.findMany({
+        include: { member: true, role: true, teams: true }
+    })
         .then(() => console.log('All Data are retrieved.'))
         .catch(e => {
         console.log('Error : ', e);

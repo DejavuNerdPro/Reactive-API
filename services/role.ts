@@ -10,14 +10,20 @@ export const roleModel={
             description:role.description
         }
     })
-    .then(()=>console.log('Data is inserted.'))
+    .then((role)=>{
+        console.log('Data is inserted.');
+        return role;
+    })
     .catch(e=>{
         console.log('Error : ',e);
         process.exit(1);
     })
 ),
 getAll:():Observable<any>=>from(prisma.roles.findMany()
-.then(()=>console.log('All Data are retrieved.'))
+.then((role)=>{
+    console.log('All Data are retrieved.');
+    return role;
+})
 .catch(e=>{
     console.log('Error : ',e);
     process.exit(1);
@@ -26,20 +32,26 @@ getAll:():Observable<any>=>from(prisma.roles.findMany()
 getById:(id:number):Observable<any>=>from(prisma.roles.findUnique({
     where:{id}
 })
-.then(()=>console.log('Data are retrieved.'))
+.then((role)=>{
+    console.log('Data are retrieved.');
+    return role;
+})
 .catch(e=>{
     console.log('Error : ',e);
     process.exit(1);
 })
 ),
-update:(role:Role):Observable<any>=>from(prisma.roles.update({
-    where:{id:role.id},
+update:(id:number,role:Role):Observable<any>=>from(prisma.roles.update({
+    where:{id:id},
     data:{
         name:role.name,
         description:role.description,
     }
 })
-.then(()=>console.log('Data are updated.'))
+.then((role)=>{
+    console.log('Data are updated.');
+    return role;
+})
 .catch(e=>{
     console.log('Error : ',e);
     process.exit(1);

@@ -21,31 +21,44 @@ exports.projectModel = {
         console.log('Error : ', e);
         process.exit(1);
     })),
-    getAll: () => (0, rxjs_1.from)(prisma_1.default.projects.findMany()
-        .then(() => console.log('All Data are retrieved.'))
-        .catch(e => {
-        console.log('Error : ', e);
-        process.exit(1);
-    })),
-    getById: (id) => (0, rxjs_1.from)(prisma_1.default.projects.findUnique({
-        where: { id }
+    getAll: () => (0, rxjs_1.from)(prisma_1.default.projects.findMany({
+        include: { teams: true }
     })
-        .then(() => console.log('Data are retrieved.'))
+        .then((project) => {
+        console.log('All Data are retrieved.');
+        return project;
+    })
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })
+        .finally(() => prisma_1.default.$disconnect())),
+    getById: (id) => (0, rxjs_1.from)(prisma_1.default.projects.findUnique({
+        where: { id }, include: { teams: true }
+    })
+        .then((project) => {
+        console.log('Data are retrieved.');
+        return project;
+    })
         .catch(e => {
         console.log('Error : ', e);
         process.exit(1);
     })),
-    update: (project) => (0, rxjs_1.from)(prisma_1.default.projects.update({
-        where: { id: project.id },
+    update: (id, project) => (0, rxjs_1.from)(prisma_1.default.projects.update({
+        where: { id },
         data: {
             name: project.name,
             description: project.description,
             team_id: project.team_id,
             start_date: project.start_date,
             end_date: project.end_date
-        }
+        },
+        include: { teams: true }
     })
-        .then(() => console.log('Data are updated.'))
+        .then((project) => {
+        console.log('Data are updated.');
+        return project;
+    })
         .catch(e => {
         console.log('Error : ', e);
         process.exit(1);

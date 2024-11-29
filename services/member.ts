@@ -18,7 +18,10 @@ export const memberModel={
     })
 ),
     getAll:():Observable<any>=>from(prisma.member.findMany()
-    .then(()=>console.log('All Data are retrieved.'))
+    .then((member)=>{
+        console.log('All Data are retrieved.');
+        return member;
+    })
     .catch(e=>{
         console.log('Error : ',e);
         process.exit(1);
@@ -27,21 +30,27 @@ export const memberModel={
     getById:(id:number):Observable<any>=>from(prisma.member.findUnique({
         where:{id}
     })
-    .then(()=>console.log('Data are retrieved.'))
+    .then((member)=>{
+        console.log('Data are retrieved.');
+        return member;
+    })
     .catch(e=>{
         console.log('Error : ',e);
         process.exit(1);
     })
 ),
-    update:(member:Member):Observable<any>=>from(prisma.member.update({
-        where:{id:member.id},
+    update:(id:number,member:Member):Observable<any>=>from(prisma.member.update({
+        where:{id},
         data:{
             name:member.name,
             email:member.email,
             joined_at:member.joined_at
         }
     })
-    .then(()=>console.log('Data are updated.'))
+    .then((member)=>{
+        console.log('Data are updated.');
+        return member;
+    })
     .catch(e=>{
         console.log('Error : ',e);
         process.exit(1);

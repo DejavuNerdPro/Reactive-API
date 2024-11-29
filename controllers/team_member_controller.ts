@@ -21,7 +21,7 @@ export const TeamMemberController={
         })
     },
     update:(req:Request,res:Response,next:NextFunction)=>{
-        teamMemberModel.update(req.body).subscribe({
+        teamMemberModel.update(Number(req.params.id),req.body).subscribe({
             error:(e)=>next(e),
             next:(teamMember)=>res.status(200).json(teamMember)
         })

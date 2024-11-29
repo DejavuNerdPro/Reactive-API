@@ -21,7 +21,7 @@ export const RoleController={
         })
     },
     update:(req:Request,res:Response,next:NextFunction)=>{
-        roleModel.update(req.body).subscribe({
+        roleModel.update(Number(req.params.id),req.body).subscribe({
             error:(e)=>next(e),
             next:(role)=>res.status(200).json(role)
         })

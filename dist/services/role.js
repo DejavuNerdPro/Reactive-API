@@ -13,13 +13,19 @@ exports.roleModel = {
             description: role.description
         }
     })
-        .then(() => console.log('Data is inserted.'))
+        .then((role) => {
+        console.log('Data is inserted.');
+        return role;
+    })
         .catch(e => {
         console.log('Error : ', e);
         process.exit(1);
     })),
     getAll: () => (0, rxjs_1.from)(prisma_1.default.roles.findMany()
-        .then(() => console.log('All Data are retrieved.'))
+        .then((role) => {
+        console.log('All Data are retrieved.');
+        return role;
+    })
         .catch(e => {
         console.log('Error : ', e);
         process.exit(1);
@@ -27,19 +33,25 @@ exports.roleModel = {
     getById: (id) => (0, rxjs_1.from)(prisma_1.default.roles.findUnique({
         where: { id }
     })
-        .then(() => console.log('Data are retrieved.'))
+        .then((role) => {
+        console.log('Data are retrieved.');
+        return role;
+    })
         .catch(e => {
         console.log('Error : ', e);
         process.exit(1);
     })),
-    update: (role) => (0, rxjs_1.from)(prisma_1.default.roles.update({
-        where: { id: role.id },
+    update: (id, role) => (0, rxjs_1.from)(prisma_1.default.roles.update({
+        where: { id: id },
         data: {
             name: role.name,
             description: role.description,
         }
     })
-        .then(() => console.log('Data are updated.'))
+        .then((role) => {
+        console.log('Data are updated.');
+        return role;
+    })
         .catch(e => {
         console.log('Error : ', e);
         process.exit(1);

@@ -12,7 +12,10 @@ exports.ProjectController = {
     getAll: (req, res, next) => {
         project_1.projectModel.getAll().subscribe({
             error: (e) => next(e),
-            next: (project) => res.status(200).json(project)
+            next: (project) => {
+                console.log('Project : ', project);
+                res.status(200).json(project);
+            }
         });
     },
     getById: (req, res, next) => {
@@ -22,7 +25,8 @@ exports.ProjectController = {
         });
     },
     update: (req, res, next) => {
-        project_1.projectModel.update(req.body).subscribe({
+        console.log("ID : ", req.params.id);
+        project_1.projectModel.update(Number(req.params.id), req.body).subscribe({
             error: (e) => next(e),
             next: (project) => res.status(200).json(project)
         });

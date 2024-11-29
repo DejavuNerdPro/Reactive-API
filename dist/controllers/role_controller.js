@@ -22,7 +22,7 @@ exports.RoleController = {
         });
     },
     update: (req, res, next) => {
-        role_1.roleModel.update(req.body).subscribe({
+        role_1.roleModel.update(Number(req.params.id), req.body).subscribe({
             error: (e) => next(e),
             next: (role) => res.status(200).json(role)
         });

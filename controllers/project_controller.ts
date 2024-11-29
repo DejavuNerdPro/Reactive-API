@@ -11,7 +11,10 @@ export const ProjectController={
     getAll:(req:Request,res:Response,next:NextFunction)=>{
         projectModel.getAll().subscribe({
             error:(e)=>next(e),
-            next:(project)=>res.status(200).json(project)
+            next:(project)=>{
+                console.log('Project : ',project);
+                res.status(200).json(project);
+            }
         })
     },
     getById:(req:Request,res:Response,next:NextFunction)=>{
@@ -21,7 +24,8 @@ export const ProjectController={
         })
     },
     update:(req:Request,res:Response,next:NextFunction)=>{
-        projectModel.update(req.body).subscribe({
+        console.log("ID : ", req.params.id);
+        projectModel.update(Number(req.params.id),req.body).subscribe({
             error:(e)=>next(e),
             next:(project)=>res.status(200).json(project)
         })

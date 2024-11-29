@@ -20,7 +20,10 @@ exports.memberModel = {
         process.exit(1);
     })),
     getAll: () => (0, rxjs_1.from)(prisma_1.default.member.findMany()
-        .then(() => console.log('All Data are retrieved.'))
+        .then((member) => {
+        console.log('All Data are retrieved.');
+        return member;
+    })
         .catch(e => {
         console.log('Error : ', e);
         process.exit(1);
@@ -28,20 +31,26 @@ exports.memberModel = {
     getById: (id) => (0, rxjs_1.from)(prisma_1.default.member.findUnique({
         where: { id }
     })
-        .then(() => console.log('Data are retrieved.'))
+        .then((member) => {
+        console.log('Data are retrieved.');
+        return member;
+    })
         .catch(e => {
         console.log('Error : ', e);
         process.exit(1);
     })),
-    update: (member) => (0, rxjs_1.from)(prisma_1.default.member.update({
-        where: { id: member.id },
+    update: (id, member) => (0, rxjs_1.from)(prisma_1.default.member.update({
+        where: { id },
         data: {
             name: member.name,
             email: member.email,
             joined_at: member.joined_at
         }
     })
-        .then(() => console.log('Data are updated.'))
+        .then((member) => {
+        console.log('Data are updated.');
+        return member;
+    })
         .catch(e => {
         console.log('Error : ', e);
         process.exit(1);

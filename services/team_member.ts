@@ -14,14 +14,22 @@ export const teamMemberModel={
             created_at:teamMember.created_at
         }
     })
-    .then(()=>console.log('Data is inserted.'))
+    .then((teamMember)=>{
+        console.log('Data is inserted.');
+        return teamMember;
+    })
     .catch(e=>{
         console.log('Error : ',e);
         process.exit(1);
     })
 ),
-    getAll:():Observable<any>=>from(prisma.teamMember.findMany()
-    .then(()=>console.log('All Data are retrieved.'))
+    getAll:():Observable<any>=>from(prisma.teamMember.findMany({
+        include:{member:true,role:true,teams:true}
+    })
+    .then((teamMember)=>{
+        console.log('All Data are retrieved.');
+        return teamMember;
+    })
     .catch(e=>{
         console.log('Error : ',e);
         process.exit(1);
@@ -30,14 +38,17 @@ export const teamMemberModel={
     getById:(id:number):Observable<any>=>from(prisma.teamMember.findUnique({
         where:{id}
     })
-    .then(()=>console.log('Data are retrieved.'))
+    .then((teamMember)=>{
+        console.log('Data are retrieved.');
+        return teamMember;
+    })
     .catch(e=>{
         console.log('Error : ',e);
         process.exit(1);
     })
 ),
-    update:(teamMember:TeamMember):Observable<any>=>from(prisma.teamMember.update({
-        where:{id:teamMember.id},
+    update:(id:number,teamMember:TeamMember):Observable<any>=>from(prisma.teamMember.update({
+        where:{id:id},
         data:{
             team_id:teamMember.team_id,
             member_id:teamMember.member_id,
@@ -47,7 +58,10 @@ export const teamMemberModel={
             created_at:teamMember.created_at
         }
     })
-    .then(()=>console.log('Data are updated.'))
+    .then((teamMember)=>{
+        console.log('Data are updated.');
+        return teamMember;
+    })
     .catch(e=>{
         console.log('Error : ',e);
         process.exit(1);

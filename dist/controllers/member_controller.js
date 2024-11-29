@@ -22,7 +22,7 @@ exports.MemberController = {
         });
     },
     update: (req, res, next) => {
-        member_1.memberModel.update(req.body).subscribe({
+        member_1.memberModel.update(Number(req.params.id), req.body).subscribe({
             error: (e) => next(e),
             next: (member) => res.status(200).json(member)
         });
