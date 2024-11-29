@@ -7,5 +7,29 @@ export const MemberController={
             error:(e)=>next(e),
             next:(member)=>res.status(200).json(member)
         })
-    }
+    },
+    getAll:(req:Request,res:Response,next:NextFunction)=>{
+        memberModel.getAll().subscribe({
+            error:(e)=>next(e),
+            next:(member)=>res.status(200).json(member)
+        })
+    },
+    getById:(req:Request,res:Response,next:NextFunction)=>{
+        memberModel.getById(Number(req.params.id)).subscribe({
+            error:(e)=>next(e),
+            next:(member)=>res.status(200).json(member)
+        })
+    },
+    update:(req:Request,res:Response,next:NextFunction)=>{
+        memberModel.update(req.body).subscribe({
+            error:(e)=>next(e),
+            next:(member)=>res.status(200).json(member)
+        })
+    },
+    delete:(req:Request,res:Response,next:NextFunction)=>{
+        memberModel.delete(Number(req.params.id)).subscribe({
+            error:(e)=>next(e),
+            next:(member)=>res.status(200).json(member)
+        })
+    },
 }

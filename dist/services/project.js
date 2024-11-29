@@ -21,8 +21,41 @@ exports.projectModel = {
         console.log('Error : ', e);
         process.exit(1);
     })),
-    getAll: null,
-    getById: null,
-    update: null,
-    delete: null
+    getAll: () => (0, rxjs_1.from)(prisma_1.default.projects.findMany()
+        .then(() => console.log('All Data are retrieved.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    getById: (id) => (0, rxjs_1.from)(prisma_1.default.projects.findUnique({
+        where: { id }
+    })
+        .then(() => console.log('Data are retrieved.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    update: (project) => (0, rxjs_1.from)(prisma_1.default.projects.update({
+        where: { id: project.id },
+        data: {
+            name: project.name,
+            description: project.description,
+            team_id: project.team_id,
+            start_date: project.start_date,
+            end_date: project.end_date
+        }
+    })
+        .then(() => console.log('Data are updated.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    delete: (id) => (0, rxjs_1.from)(prisma_1.default.projects.delete({
+        where: { id }
+    })
+        .then(() => console.log('Data are deleted.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    }))
 };

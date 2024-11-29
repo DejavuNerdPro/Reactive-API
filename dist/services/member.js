@@ -13,9 +13,45 @@ exports.memberModel = {
             email: member.email,
             joined_at: member.joined_at
         }
+    })
+        .then(() => console.log('Data is inserted.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
     })),
-    getAll: null,
-    getById: null,
-    update: null,
-    delete: null
+    getAll: () => (0, rxjs_1.from)(prisma_1.default.member.findMany()
+        .then(() => console.log('All Data are retrieved.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    getById: (id) => (0, rxjs_1.from)(prisma_1.default.member.findUnique({
+        where: { id }
+    })
+        .then(() => console.log('Data are retrieved.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    update: (member) => (0, rxjs_1.from)(prisma_1.default.member.update({
+        where: { id: member.id },
+        data: {
+            name: member.name,
+            email: member.email,
+            joined_at: member.joined_at
+        }
+    })
+        .then(() => console.log('Data are updated.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    delete: (id) => (0, rxjs_1.from)(prisma_1.default.member.delete({
+        where: { id }
+    })
+        .then(() => console.log('Data are deleted.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    }))
 };

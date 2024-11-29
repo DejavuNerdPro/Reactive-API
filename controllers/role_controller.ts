@@ -7,5 +7,29 @@ export const RoleController={
             error:(e)=>next(e),
             next:(role)=>res.status(200).json(role)
         })
-    }
+    },
+    getAll:(req:Request,res:Response,next:NextFunction)=>{
+        roleModel.getAll().subscribe({
+            error:(e)=>next(e),
+            next:(role)=>res.status(200).json(role)
+        })
+    },
+    getById:(req:Request,res:Response,next:NextFunction)=>{
+        roleModel.getById(Number(req.params.id)).subscribe({
+            error:(e)=>next(e),
+            next:(role)=>res.status(200).json(role)
+        })
+    },
+    update:(req:Request,res:Response,next:NextFunction)=>{
+        roleModel.update(req.body).subscribe({
+            error:(e)=>next(e),
+            next:(role)=>res.status(200).json(role)
+        })
+    },
+    delete:(req:Request,res:Response,next:NextFunction)=>{
+        roleModel.delete(Number(req.params.id)).subscribe({
+            error:(e)=>next(e),
+            next:(role)=>res.status(200).json(role)
+        })
+    },
 }

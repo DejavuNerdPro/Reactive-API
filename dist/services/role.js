@@ -18,8 +18,38 @@ exports.roleModel = {
         console.log('Error : ', e);
         process.exit(1);
     })),
-    getAll: null,
-    getById: null,
-    update: null,
-    delete: null
+    getAll: () => (0, rxjs_1.from)(prisma_1.default.roles.findMany()
+        .then(() => console.log('All Data are retrieved.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    getById: (id) => (0, rxjs_1.from)(prisma_1.default.roles.findUnique({
+        where: { id }
+    })
+        .then(() => console.log('Data are retrieved.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    update: (role) => (0, rxjs_1.from)(prisma_1.default.roles.update({
+        where: { id: role.id },
+        data: {
+            name: role.name,
+            description: role.description,
+        }
+    })
+        .then(() => console.log('Data are updated.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    delete: (id) => (0, rxjs_1.from)(prisma_1.default.roles.delete({
+        where: { id }
+    })
+        .then(() => console.log('Data are deleted.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    }))
 };

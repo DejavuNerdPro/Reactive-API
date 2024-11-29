@@ -19,8 +19,39 @@ exports.teamModel = {
         console.log('Error : ', e);
         process.exit(1);
     })),
-    getAll: null,
-    getById: null,
-    update: null,
-    delete: null
+    getAll: () => (0, rxjs_1.from)(prisma_1.default.teams.findMany()
+        .then(() => console.log('All Data are retrieved.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    getById: (id) => (0, rxjs_1.from)(prisma_1.default.teams.findUnique({
+        where: { id }
+    })
+        .then(() => console.log('Data are retrieved.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    update: (team) => (0, rxjs_1.from)(prisma_1.default.teams.update({
+        where: { id: team.id },
+        data: {
+            name: team.name,
+            description: team.description,
+            created_at: team.created_at
+        }
+    })
+        .then(() => console.log('Data are updated.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    })),
+    delete: (id) => (0, rxjs_1.from)(prisma_1.default.teams.delete({
+        where: { id }
+    })
+        .then(() => console.log('Data are deleted.'))
+        .catch(e => {
+        console.log('Error : ', e);
+        process.exit(1);
+    }))
 };
