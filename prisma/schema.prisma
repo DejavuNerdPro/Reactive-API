@@ -13,12 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        Int   @id @default(autoincrement())
+  member_id Int
+  member Member @relation(fields:[member_id],references:[id])
+  password  String   // For storing hashed passwords
+  role_id Int
+  roles Roles @relation(fields:[role_id],references:[id])
+  oauth_id String @unique
+  provider String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Member{
   id Int @id @default(autoincrement())
   name String
   email String @unique
   joined_at DateTime @default(now())
-
+  user User[]
   teamMember TeamMember[]
 }
 
@@ -46,7 +59,7 @@ model Roles{
   id Int @id @default(autoincrement())
   name String
   description String
-
+  user User[]
   teamMember TeamMember[]
 }
 
