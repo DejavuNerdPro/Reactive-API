@@ -1,6 +1,6 @@
 import session from 'express-session';
 
-export const seesionConfig=session({
+export const sessionConfig=session({
     secret : process.env.SESSION_SECRET_KEY || '_____**____',
     resave:false,
     saveUninitialized:false,
